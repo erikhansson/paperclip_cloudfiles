@@ -1,7 +1,36 @@
 = paperclip_cloudfiles
 
-Description goes here.
+Will review configuration and write brief docs later. :P
+Cloudfiles storage for Paperclip. Require, configure environments:
 
+  production.rb
+
+  Paperclip::WithDefault.options = Paperclip::WithDefault.default_cloudfiles_options.merge({
+    :credentials => {
+      :username => 'username',
+      :api_key => 'API key'
+    },
+    :container => 'my_container_name',
+    :base_url => 'http://odd_string.cloudfiles.com'
+  })
+  
+  # Or, equivalently...
+  
+  Paperclip::WithDefault.use_cloudfiles_options({
+    :credentials => {
+      :username => 'username',
+      :api_key => 'API key'
+    },
+    :container => 'my_container_name',
+    :base_url => 'http://odd_string.cloudfiles.com'
+  })
+  
+  
+  development.rb
+  
+  Paperclip::WithDefault.options = { :url => '/system/foobar/:id/:filename' }
+
+  
 == Note on Patches/Pull Requests
  
 * Fork the project.
