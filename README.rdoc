@@ -1,34 +1,58 @@
 = paperclip_cloudfiles
 
-Will review configuration and write brief docs later. :P
-Cloudfiles storage for Paperclip. Require, configure environments:
+Enables CloudFiles storage for Paperclip. Also provides a simple mechanism
+for defining default settings for Paperclip attachments. Be warned that this
+project is largely untested. It has worked for me in a limited number of
+specific cases, but as experience shows, this is no guarantee of general
+soundness. You've been warned.
 
-  production.rb
 
-  Paperclip::WithDefault.options = Paperclip::WithDefault.default_cloudfiles_options.merge({
+== Installation
+
+  sudo gem install erikhansson-paperclip_cloudfiles
+  
+  
+== Setup
+
+environment.rb
+
+  config.gem 'erikhansson-paperclip_cloudfiles', :lib => 'paperclip_cloudfiles', :source => 'http://gems.github.com'
+  
+production.rb (or some other source of configuration)
+
+  Paperclip::WithDefault.use_cloudfiles_options :cloudfiles => {
     :credentials => {
-      :username => 'username',
-      :api_key => 'API key'
-    },
-    :container => 'my_container_name',
-    :base_url => 'http://odd_string.cloudfiles.com'
-  })
-  
-  # Or, equivalently...
-  
-  Paperclip::WithDefault.use_cloudfiles_options({
-    :credentials => {
-      :username => 'username',
-      :api_key => 'API key'
-    },
-    :container => 'my_container_name',
-    :base_url => 'http://odd_string.cloudfiles.com'
-  })
+        :username => 'username',
+        :api_key => 'abcdefghijklmnopqrstuvxyz1234567'
+      },
+    :container => 'container_name',
+    :base_url => 'http://xxxxyyyy.cdn.cloudfiles.rackspacecloud.com'
+  }
   
   
-  development.rb
+== Usage
+
+  class Model < ActiveRecord::Base
   
-  Paperclip::WithDefault.options = { :url => '/system/foobar/:id/:filename' }
+    has_attached_file_with_defaults :image, :styles => { :display => "675>" }
+    
+  end
+  
+  
+== What's going on?
+
+has_attached_file_with_defaults simply calls the familiar Paperclip
+has_attached_file method with a set of default options, found in
+Paperclip::WithDefault.options.
+
+Paperclip::WithDefault.use_cloudfiles_options, sets this default
+options hash to some convenient default settings for CloudFiles. You
+can also set it directly using Paperclip::WithDefault.options=
+
+You can also set different default settings for the test and development
+environments. In fact, the test environment automagically gets new 
+default settings { :url => '/system_test/:attachment/:id/:style/:filename' }
+to keep files uploaded during tests to comingle with actual uploaded files.
 
   
 == Note on Patches/Pull Requests

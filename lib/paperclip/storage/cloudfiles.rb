@@ -70,12 +70,22 @@ module Paperclip
           begin
             log("saving to cloudfiles #{path(style)}")
             obj = cf_container.create_object(path(style))
-            obj.write(file)
+            obj.write(file, cf_headers)
           rescue StandardError => e
             raise
           end
         end
         @queued_for_write = {}
+      end
+      
+      # Headers sent to Cloudfiles on upload. Currently used to provide
+      # a Content-Type header if one is available.
+      def cf_headers #:nodoc:
+        result = {}
+        if content_type = instance_read(:content_type)
+          result['Content-Type'] = content_type
+        end
+        result
       end
 
       def flush_deletes #:nodoc:

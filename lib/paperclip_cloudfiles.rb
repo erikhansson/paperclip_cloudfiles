@@ -1,5 +1,5 @@
-require '/paperclip/storage/cloudfiles'
-require '/paperclip/with_default'
+require 'paperclip/storage/cloudfiles'
+require 'paperclip/with_default'
 
 
 # Make has_attached_file_with_defaults available in ActiveRecord::Base
