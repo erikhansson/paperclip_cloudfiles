@@ -20,8 +20,8 @@ module Paperclip
           @cf_base_url       = @options[:cloudfiles][:base_url]
         end
         
-        Paperclip.interpolates(:cf_base_url) do |attachment, style|
-          "#{cf_base_url}"
+        Paperclip.interpolates(:container_url) do |attachment, style|
+          "#{attachment.cf_base_url}"
         end
       end
       

@@ -5,7 +5,7 @@ module Paperclip
     # Default options for CloudFiles.
     def self.cloudfiles_options
       @cloudfiles_options ||= {
-        :url           => ":cf_base_url/:path",
+        :url           => ":container_url/attachments/:class/:attachment/:id/:style/:filename",
         :path          => "attachments/:class/:attachment/:id/:style/:filename",
         :storage       => :cloudfiles
       }

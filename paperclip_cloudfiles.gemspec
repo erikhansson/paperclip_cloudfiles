@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{paperclip_cloudfiles}
-  s.version = "0.0.2"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Erik Hansson"]
-  s.date = %q{2009-09-22}
+  s.date = %q{2009-09-28}
   s.description = %q{Provides a :cloudfiles storage options for Paperclip.}
   s.email = %q{erik@bits2life.com}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "lib/paperclip/storage/cloudfiles.rb",
      "lib/paperclip/with_default.rb",
      "lib/paperclip_cloudfiles.rb",
+     "paperclip_cloudfiles.gemspec",
      "spec/paperclip_cloudfiles_spec.rb",
      "spec/spec_helper.rb"
   ]
