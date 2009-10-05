@@ -92,7 +92,7 @@ module Paperclip
         @queued_for_delete.each do |path|
           begin
             log("deleting from cloudfiles #{path}")
-            cf_container.delete(path)
+            cf_container.delete_object(path)
           end
         end
         @queued_for_delete = []
